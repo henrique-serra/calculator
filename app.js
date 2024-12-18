@@ -32,7 +32,7 @@ function divide(a, b) {
     return a / b;
 }
 
-function calculateOperation(a, b, operator) {
+function operate(a, b, operator) {
     const methods = {
         "+": add,
         "-": subtract,
