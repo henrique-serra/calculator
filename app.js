@@ -104,6 +104,18 @@ keyArea.addEventListener("click", (event) => {
         return;
     }
 
+    if (btnId === "decimalBtn") {
+        let {a, operator, b} = getOperands();
+        if (b) {
+            screen.textContent += ".";
+        } else if (operator) {
+            screen.textContent = `${a} ${operator} 0.`;
+        } else if (a) {
+            screen.textContent += ".";
+        }
+        return;
+    }
+
     if (btnClassList.includes("numeralBtn")) {
         const number = event.target.textContent;
         screen.textContent += number;
