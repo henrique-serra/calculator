@@ -32,7 +32,16 @@ function multiply(a, b) {
 function divide(a, b) {
     a = isString(a);
     b = isString(b);
-    return a / b;
+    if (b == 0) return "I don't divide by 0";
+    let result = a / b;
+    if (result === Math.floor(result)) return result;
+    else return Number(result.toFixed(2));
+}
+
+function percentage(a, b) {
+    a = isString(a);
+    b = isString(b);
+    return (a / 100) * b;
 }
 
 const methods = {
@@ -40,6 +49,7 @@ const methods = {
     "-": subtract,
     "*": multiply,
     "/": divide,
+    "%": percentage,
 }
 
 function getOperands() {
@@ -56,11 +66,15 @@ function getOperands() {
 function operate() {
     screenContentVariable = screen.textContent;
     let {a, operator, b} = getOperands();
+    if (!a) {
+        screen.textContent = "";
+        return;
+    }
     return methods[operator](a, b);
 }
 
 function isOperator(character) {
-    return character === "+" || character === "-" || character === "*" || character === "/";
+    return character === "+" || character === "-" || character === "*" || character === "/" || character === "%";
 }
 
 function getOperatorsQty() {
@@ -76,6 +90,10 @@ keyArea.addEventListener("click", (event) => {
     const btnClassList = Array.from(event.target.classList);
     const btnId = event.target.id;
     
+    if (screen.textContent === "I don't divide by 0") {
+        screen.textContent = "";
+    }
+
     if (btnId === "equalBtn") {
         screen.textContent = operate();
         return
@@ -107,11 +125,11 @@ keyArea.addEventListener("click", (event) => {
     if (btnId === "decimalBtn") {
         let {a, operator, b} = getOperands();
         if (b) {
-            screen.textContent += ".";
+            screen.textContent = b.includes(".") ? screen.textContent : screen.textContent + ".";
         } else if (operator) {
             screen.textContent = `${a} ${operator} 0.`;
         } else if (a) {
-            screen.textContent += ".";
+            screen.textContent = a.includes(".") ? screen.textContent : screen.textContent + ".";
         }
         return;
     }
