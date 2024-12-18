@@ -1,6 +1,8 @@
-const screen = document.querySelector("#screen")
+const screen = document.querySelector("#screen");
 const acBtn = document.querySelector("#acBtn");
 const numeralBtns = document.querySelectorAll(".numeralBtn");
+const keyArea = document.querySelector("#keyArea");
+let screenContentVariable = "";
 
 function isString(x) {
     if (typeof x === "string") return Number(x);
@@ -39,16 +41,26 @@ function operate(a, b, operator) {
         "*": multiply,
         "/": divide,
     }
+    screenContentVariable = screen.textContent;
     return methods[operator](a, b);
 }
 
-acBtn.addEventListener("click", () => {
-    screen.textContent = "";
-})
-
-numeralBtns.forEach(btn => {
-    btn.addEventListener("click", (event) => {
+keyArea.addEventListener("click", (event) => {
+    const btnClassList = Array.from(event.target.classList);
+    const btnId = event.target.id;
+    
+    if (btnClassList.includes("numeralBtn")) {
         const number = event.target.textContent;
         screen.textContent += number;
-    })
+        return;
+    }
+
+    switch (btnId) {
+        case "acBtn":
+            screen.textContent = "";
+            break;
+    
+        default:
+            break;
+    }
 })
