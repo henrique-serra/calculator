@@ -14,19 +14,20 @@ body {
 
 #calculator {
     margin: auto;
-    border: 1px solid black;
+    border: 5px outset black;
 }
 
 #screen {
-    width: 95%;
+    max-width: 315px;
     height: 60px;
     margin: 5px auto;
     background-color: gainsboro;
-    border: 3px inset black;
-    font-size: 36px;
+    border: 7px outset grey;
+    font-size: 24px;
     text-align: right;
     align-content: center;
     padding: 0 5px;
+    overflow-x: hidden;
 }
 
 button {
